@@ -1,0 +1,42 @@
+#!/bin/sh
+
+WATCH_BIN=/opt/modified/modified.py
+test -x $WATCH_BIN || { echo "$WATCH_BIN not installed";
+        if [ "$1" = "stop" ]; then exit 0;
+        else exit 5; fi; }
+case "$1" in
+    start)
+        echo "Starting Modified Service"
+	start-stop-daemon --start --exec $WATCH_BIN &        # Remember status and be verbose
+	echo "[+] Service is Started"
+        ;;
+    stop)
+        echo "[-] Shutting down Modified Service"
+	exec kill -n 9 $(ps -aF | awk -F" " '{print $2 " " $11 " " $12}' | grep '/usr/bin/python /opt/modified/modified.py' | awk -F" " '{print $1}') 
+	echo "[-] Modified Service Stoped"
+        ;;
+    restart)
+        $0 stop
+        $0 start
+        ;;
+    reload)
+        echo "Reload Modified Service"
+	$0 stop
+	$0 start
+        ;;
+    status)
+        echo "Checking for Modified Service "
+	PID=$(ps -aF | awk -F" " '{print $2 " " $11 " " $12}' | grep '/usr/bin/python /opt/modified/modified.py' | awk -F" " '{print $1}') || true
+	if [ -n "$PID" ]; then
+		echo "Modified Service is Running on PID $PID"
+		exit 0
+	else 
+		echo "Modified Service Not Running"
+		exit 1
+	fi
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|status|restart|reload}"
+        exit 1
+        ;;
+esac
