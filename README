@@ -1,3 +1,4 @@
+
 -------------------------INFO------------------------------------------
 This is a File and Folder Access/modified Sha512 Hash Database that
 stores a FileName:HASH , one per line .The datadbase gets started and a 
@@ -5,17 +6,29 @@ main dbfile is Created that stores the hash to be checked up against .
 If the Hashes Do Not Match an Email is Sent to who ever you want just place 
 email name in conf/settings.py . 
 ------------------------INSTALL---------------------------------
-To install run 'sudo python /FOLDER/LOCATION/modified/setup.py'
+To install run 'sudo python /WHEREYOU/DOWNLOADED/modified/setup.py'
 then in '/opt/modified/conf/settings.py' change to add all your information
 like email address to get Alerts , im adding another method of alert so when 
 no internet service in available
+-----------------CMD-TO-RUN--------------------
+############################################
+once all the info is updated in settings.py 
+run ::
+/etc/init.d/modified start   ###
+and 
+/etc/init.d/modified stop  ###
+to stop of course
+of to run at Startup do
+sudo update-rc.d modified defaults ###
+#########################################
+
 ------------------FILES-&-FOLDERS-TO-MONITOR----------------------------------
 The main thing you have to change is the modfiles and modfolders put the files and 
 folders that you want in there in the same format example.  
 
 monfolders = ['FOLDR1', 'FOLDR2', 'FOLDR3', '/var/www/img', /var/www/cgi-bin/logs', '/var/www/db'] 
 monfiles = ['/var/log/ssh.auth', /var/logs/SECRET', '/var/www/db.INFO','FAKE.SSN_FOR_INTRUDER_FILE', '/home/user/CC.NUMBER']
----------------------------MORE-BULLSHIT-TO-ADD-LATER-STILL-BUGGY-AS-SHIT---------------------------------------------------------------------------------
+--------------------MORE-BULLSHIT-TO-ADD-LATER-STILL-BUGGY-AS-SHIT-------------------------
 
 I had it beeping when it was alerted but that was needing 
 pygame not a built in mod so i didnt do it.
