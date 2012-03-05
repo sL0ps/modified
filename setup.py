@@ -3,7 +3,8 @@ import os, time
 
 os.mkdir('/opt/modified/')
 time.sleep(1)
-os.system('/bin/cp -R ../modified /opt/')
+crdir=os.getcwd()
+os.system('/bin/cp -R '+str(crdir)+' /opt/')
 time.sleep(1)
 os.system('/bin/rm /opt/modified/setup.py')
 time.sleep(1)
